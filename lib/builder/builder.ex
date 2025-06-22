@@ -90,16 +90,15 @@ defmodule Burrito.Builder do
       target = %Target{target | debug?: debug?}
 
       self_path =
-        __ENV__.file
-        |> Path.dirname()
-        |> Path.split()
-        |> IO.inspect(label: :split)
-        |> List.delete_at(-1)
-        |> IO.inspect(label: :first_delete)
-        |> List.delete_at(-1)
-        |> IO.inspect(label: :second_delete)
-        |> Path.join()
-        |> IO.inspect(label: :self_path)
+        System.get_env(
+          "BURRITO_SELF_PATH",
+          __ENV__.file
+          |> Path.dirname()
+          |> Path.split()
+          |> List.delete_at(-1)
+          |> List.delete_at(-1)
+          |> Path.join()
+        )
 
       initial_context = %Context{
         target: target,
