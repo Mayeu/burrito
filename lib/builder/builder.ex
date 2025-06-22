@@ -93,9 +93,13 @@ defmodule Burrito.Builder do
         __ENV__.file
         |> Path.dirname()
         |> Path.split()
+        |> IO.inspect(:split)
         |> List.delete_at(-1)
+        |> IO.inspect(:first_delete)
         |> List.delete_at(-1)
+        |> IO.inspect(:second_delete)
         |> Path.join()
+        |> IO.inspect(:self_path)
 
       initial_context = %Context{
         target: target,
